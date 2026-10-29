@@ -1,0 +1,112 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+int arr[100];
+int n = 0; 
+
+
+
+// Duyet xuôi 
+void duyetXuoi() {
+    if (n == 0) {
+        cout << "Mang rong!\n";
+        return;
+    }
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+}
+
+// Duyet nguoc
+void duyetNguoc() {
+    if (n == 0) return;
+    for (int i = n - 1; i >= 0; i--) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+}
+
+
+
+// Chèn vào cuoi mang - O(1)
+void chenCuoi(int x) {
+    if (n >= 100) return; 
+    arr[n] = x;
+    n++;
+}
+
+// Chèn vào dau mang - O(n)
+void chenDau(int x) {
+    if (n >= 100) return;
+  
+    for (int i = n; i > 0; i--) {
+        arr[i] = arr[i - 1];
+    }
+    arr[0] = x;
+    n++;
+}
+
+// Chèn vào vi trí k 
+void chenViTri(int x, int k) {
+    if (n >= 100 || k < 0 || k > n) return;
+    
+    
+    for (int i = n; i > k; i--) {
+        arr[i] = arr[i - 1];
+    }
+    arr[k] = x;
+    n++;
+}
+
+
+
+// Xóacuoi - O(1)
+void xoaCuoi() {
+    if (n > 0) {
+        n--; 
+    }
+}
+
+// Xóa  dau - O(n)
+void xoaDau() {
+    if (n == 0) return;
+    
+    for (int i = 0; i < n - 1; i++) {
+        arr[i] = arr[i + 1];
+    }
+    n--;
+}
+
+// Xóa vi trí k 
+void xoaViTri(int k) {
+    if (n == 0 || k < 0 || k >= n) return;
+    
+   
+    for (int i = k; i < n - 1; i++) {
+        arr[i] = arr[i + 1];
+    }
+    n--;
+}
+
+
+int main() {
+    chenCuoi(10);
+    chenCuoi(20);
+    chenCuoi(30);
+    duyetXuoi(); // 10 20 30
+    chenDau(5);
+    duyetXuoi(); // 5 10 20 30
+    chenViTri(15, 2);
+    duyetXuoi(); // 5 10 15 20 30
+    xoaDau();
+    duyetXuoi(); // 10 15 20 30
+    xoaCuoi();
+    duyetXuoi(); // 10 15 20
+    xoaViTri(1);
+    duyetXuoi(); // 10 20
+    duyetNguoc(); // 20 10
+
+    return 0;
+}
